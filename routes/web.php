@@ -20,6 +20,7 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('login', 'AuthController@login');
+    $router->post('refresh', 'AuthController@refresh');
     $router->group(['middleware' => 'auth'], function () use ($router) {
         $router->get('books', 'BookController@index');
         $router->get('books/{id}', 'BookController@show');
@@ -27,7 +28,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->put('books/{id}', 'BookController@update');
         $router->delete('books/{id}', 'BookController@destroy');
         $router->post('logout', 'AuthController@logout');
-        $router->post('refresh', 'AuthController@refresh');
         $router->post('me', 'AuthController@me');
     });
 });
