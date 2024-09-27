@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Http\Resources\Json\Resource;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,6 +12,11 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    // public function boot()
+    // {
+    //     // Tắt bao quanh data mặc định của resource (cho dữ liệu trả về gọn hơn)
+    //     Resource::withoutWrapping();
+    // }
     public function register()
     {
         //

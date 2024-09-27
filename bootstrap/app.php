@@ -79,6 +79,8 @@ $app->configure('jwt');
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
+    'checkAdmin' => App\Http\Middleware\CheckAdmin::class,
+    'checkValidate' => App\Http\Middleware\Validate::class,
 ]);
 
 /*
@@ -92,7 +94,7 @@ $app->routeMiddleware([
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
