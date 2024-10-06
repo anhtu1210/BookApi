@@ -28,6 +28,7 @@ class BookFactory extends Factory
             'author' => $this->faker->name(),
             'published_year' => $this->faker->year(),
             'code' => "book" . rand(0, 100),
+            'user_id' => 1
         ];
     }
 }

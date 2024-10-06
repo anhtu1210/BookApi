@@ -51,4 +51,21 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return $this->hasMany(Book::class);
     }
+
+    protected $with = ['role', 'role.permissions'];
+
+    // Một người dùng thuộc về một vai trò
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    // Lấy các quyền của người dùng thông qua vai trò
+    public function permissions()
+    {
+        if ($this->role) {
+            return $this->role->permissions();
+        }
+        return collect(); // Trả về một collection rỗng nếu user không có vai trò
+    }
 }

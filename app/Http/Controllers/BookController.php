@@ -15,22 +15,23 @@ class BookController extends Controller
     public function index()
     {
         // Cache dữ liệu trong 60 phút
-        $books = Cache::remember('books', 60, function () {
-            return Book::all();
-        });
+        // $books = Cache::remember('books', 60, function () {
+        //     return Book::all();
+        // });
 
-        if ($books->isEmpty()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Không có book nào.'
-            ], 404);
-        }
+        // if ($books->isEmpty()) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Không có book nào.'
+        //     ], 404);
+        // }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Lấy danh sách book thành công.',
-            'data' => BookResource::collection($books)
-        ], 200);
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Lấy danh sách book thành công.',
+        //     'data' => BookResource::collection($books)
+        // ], 200);
+        return Book::getBooks();
     }
 
     public function store(Request $request)
@@ -61,99 +62,104 @@ class BookController extends Controller
         ];
 
         // tạo item mới
-        try {
-            $book = Book::create($bookData);
-            Cache::forget('books'); // Xóa cache
-            return response()->json([
-                'success' => true,
-                'message' => 'Tạo books thành công.',
-                'data' => new BookResource($book)
-            ], 201);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Có lỗi xảy ra khi tạo books.' . $e
-            ], 500);
-        }
+        // try {
+        //     $book = Book::create($bookData);
+        //     Cache::forget('books'); // Xóa cache
+        //     return response()->json([
+        //         'success' => true,
+        //         'message' => 'Tạo books thành công.',
+        //         'data' => new BookResource($book)
+        //     ], 201);
+        // } catch (\Exception $e) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Có lỗi xảy ra khi tạo books.' . $e
+        //     ], 500);
+        // }
+        return Book::createBook($bookData , $request);
     }
     public function show($id)
     {
-        $book = Book::find($id);
+        // $book = Book::find($id);
 
-        if (!$book) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Không tìm thấy book.'
-            ], 404);
-        }
+        // if (!$book) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Không tìm thấy book.'
+        //     ], 404);
+        // }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Lấy chi tiết book thành công.',
-            'data' => new BookResource($book)
-        ], 200);
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Lấy chi tiết book thành công.',
+        //     'data' => new BookResource($book)
+        // ], 200);
+        return Book::showBook($id);
     }
     public function update(Request $request, $id)
     {
-        $book = Book::query()->find($id);
+        // $book = Book::query()->find($id);
 
-        if (!$book) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Không tìm thấy book để cập nhật.'
-            ], 404);
-        }
+        // if (!$book) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Không tìm thấy book để cập nhật.'
+        //     ], 404);
+        // }
 
-        // Cập nhật book
-        try {
-            $book->update($request->all());
-            Cache::forget('books'); // Xóa cache
-            return response()->json([
-                'success' => true,
-                'message' => 'Cập nhật book thành công.',
-                'data' => new BookResource($book)
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Có lỗi xảy ra khi cập nhật book.' . $e
-            ], 500);
-        }
+        // // Cập nhật book
+        // try {
+        //     $book->update($request->all());
+        //     Cache::forget('books'); // Xóa cache
+        //     return response()->json([
+        //         'success' => true,
+        //         'message' => 'Cập nhật book thành công.',
+        //         'data' => new BookResource($book)
+        //     ], 200);
+        // } catch (\Exception $e) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Có lỗi xảy ra khi cập nhật book.' . $e
+        //     ], 500);
+        // }
+        return Book::editBook($id,$request);
     }
     public function destroy($id)
     {
-        $book = Book::find($id);
+        // $book = Book::find($id);
 
-        if (!$book) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Không tìm thấy book để xóa.'
-            ], 404);
-        }
+        // if (!$book) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Không tìm thấy book để xóa.'
+        //     ], 404);
+        // }
 
-        try {
-            $book->delete();
-            Cache::forget('books'); // Xóa cache
-            return response()->json([
-                'success' => true,
-                'message' => 'Xóa book thành công.'
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Có lỗi xảy ra khi xóa book.'
-            ], 500);
-        }
+        // try {
+        //     $book->delete();
+        //     Cache::forget('books'); // Xóa cache
+        //     return response()->json([
+        //         'success' => true,
+        //         'message' => 'Xóa book thành công.'
+        //     ], 200);
+        // } catch (\Exception $e) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Có lỗi xảy ra khi xóa book.'
+        //     ], 500);
+        // }
+        return Book::deleteBook($id);
     }
 
     public function getDeletedBooks()
     {
-        $deletedBooks = Book::onlyTrashed()->get();
+        // $deletedBooks = Book::onlyTrashed()->get();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Lấy danh sách sách đã bị xóa thành công.',
-            'data' => BookResource::collection($deletedBooks),
-        ], 200);
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Lấy danh sách sách đã bị xóa thành công.',
+        //     'data' => BookResource::collection($deletedBooks),
+        // ], 200);
+        return Book::getTrash();
     }
 }
