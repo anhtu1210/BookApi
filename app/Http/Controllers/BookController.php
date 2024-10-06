@@ -76,6 +76,7 @@ class BookController extends Controller
         //         'message' => 'Có lỗi xảy ra khi tạo books.' . $e
         //     ], 500);
         // }
+        
         return Book::createBook($bookData , $request);
     }
     public function show($id)
