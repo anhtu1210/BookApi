@@ -42,7 +42,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
         ]);
         $router->post('books', [
-            'middleware' => ['checkValidate', 'permission:create'],
+            'middleware' => ['validation', 'permission:create'],
             'uses' => 'BookController@store',
 
         ]);

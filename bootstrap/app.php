@@ -89,6 +89,7 @@ $app->routeMiddleware([
     'checkAdmin' => App\Http\Middleware\CheckAdmin::class,
     'checkValidate' => App\Http\Middleware\Validate::class,
     'permission' => \App\Http\Middleware\CheckPermission::class,
+    'validation' => \App\Http\Middleware\Validation::class,
 ]);
 
 /*
